@@ -533,6 +533,151 @@
     margin-top: 1rem;
   }
 
+  /* ---- DEBUT CARD ---- */
+  .playlist-card--debut {
+    border-color: rgba(255,45,120,0.4);
+    animation: debutpulse 2s infinite;
+  }
+
+  @keyframes debutpulse {
+    0%, 100% { border-color: rgba(255,45,120,0.4); box-shadow: 0 0 0px rgba(255,45,120,0); }
+    50% { border-color: rgba(255,45,120,0.9); box-shadow: 0 0 18px rgba(255,45,120,0.3); }
+  }
+
+  .playlist-card--debut::before {
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-cyan));
+    background-size: 200% 100%;
+    animation: gradshift 3s linear infinite;
+  }
+
+  @keyframes gradshift {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+  }
+
+  .debut-overlay {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .classified-stamp {
+    text-align: center;
+    padding: 2rem 1rem 0.5rem;
+  }
+
+  .classified-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--neon-pink);
+    text-shadow: 0 0 12px var(--neon-pink), 0 0 30px rgba(255,45,120,0.4);
+    border: 2px solid var(--neon-pink);
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    transform: rotate(-3deg);
+    animation: stampflicker 4s infinite;
+  }
+
+  @keyframes stampflicker {
+    0%, 88%, 100% { opacity: 1; }
+    90% { opacity: 0.3; }
+    94% { opacity: 1; }
+    97% { opacity: 0.5; }
+  }
+
+  .transmission-alert {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--neon-pink);
+    text-align: center;
+    padding: 0.75rem 1rem;
+    animation: errblink 1.8s infinite;
+  }
+
+  .debut-hint {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(191,95,255,0.5);
+    text-align: center;
+    padding: 0 1rem 0.5rem;
+  }
+
+  .debut-data-rows {
+    padding: 0.5rem 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .debut-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .debut-bar-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: rgba(224,224,255,0.25);
+    min-width: 55px;
+  }
+
+  .debut-bar-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,45,120,0.1);
+    border: 1px solid rgba(255,45,120,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .debut-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    animation: scanfill 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes scanfill {
+    0% { width: 15%; }
+    100% { width: 85%; }
+  }
+
+  .debut-bar-val {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    color: rgba(255,45,120,0.5);
+    min-width: 30px;
+    text-align: right;
+    animation: errblink 2s infinite;
+  }
+
+  /* decrypt reveal */
+  .decrypt-overlay {
+    display: none;
+    padding: 1.5rem 1.25rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px var(--neon-cyan);
+    min-height: 80px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .embed-container {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .embed-container.visible { opacity: 1; }
+
   @media (max-width: 600px) {
     .hero { padding: 2.5rem 0 1.5rem; }
     .playlist-grid { grid-template-columns: 1fr; }
@@ -559,7 +704,8 @@
       <li id="log-5"><span class="status pending">&gt;</span><span class="msg">Injecting synthwave payload into auditory cortex...</span></li>
       <li id="log-6"><span class="status pending">&gt;</span><span class="msg">Syncing neural rhythm drivers...</span></li>
       <li id="log-7"><span class="status pending">&gt;</span><span class="msg">Rerouting emotional bandwidth to pleasure centers...</span></li>
-      <li id="log-8"><span class="status pending">&gt;</span><span class="msg">Neon grid online. Signal locked.</span></li>
+      <li id="log-8"><span class="status pending">&gt;</span><span class="msg">Decrypting 8-bit Love payload... <span style="color:var(--neon-yellow); text-shadow: 0 0 8px var(--neon-yellow); font-weight:bold;">⚠ WARNING: new transmission detected</span></span></li>
+      <li id="log-9"><span class="status pending">&gt;</span><span class="msg">Neon grid online. Signal locked.</span></li>
     </ul>
   </div>
 
@@ -651,29 +797,44 @@
           <iframe data-testid="embed-iframe" style="border-radius:0" src="https://open.spotify.com/embed/playlist/3fRPqIBNYXQoA9CtZp4RsG?utm_source=generator&si=203054ce43874211" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
 
-        <div class="playlist-card playlist-card--offline">
+        <div class="playlist-card playlist-card--debut" id="debut-card">
           <div class="card-header">
-            <span class="card-title" style="color: rgba(255,45,120,0.6);">8-bit Love &amp; The Pixel People</span>
-            <div class="card-dot" style="background:var(--neon-pink); box-shadow: 0 0 6px var(--neon-pink); animation: pulse-err 1.2s infinite;"></div>
+            <span class="card-title" style="color:var(--neon-pink);">8-bit Love &amp; The Pixel People</span>
+            <div class="card-dot" style="background:var(--neon-pink); box-shadow:0 0 6px var(--neon-pink); animation:pulse 0.8s infinite;"></div>
           </div>
-          <div class="corrupt-placeholder">
-            <div class="corrupt-line">
-              <span class="corrupt-label">STATUS</span>
-              <span class="corrupt-val err-blink">UPLOAD FAILED</span>
+
+          <!-- CLASSIFIED overlay — click to unlock -->
+          <div class="debut-overlay" id="debut-overlay" onclick="startDecrypt()">
+            <div class="classified-stamp">
+              <span class="classified-text">▓▓ CLASSIFIED ▓▓</span>
             </div>
-            <div class="corrupt-line">
-              <span class="corrupt-label">SIGNAL</span>
-              <span class="corrupt-val">FR▒GM▒NT▒D</span>
+            <p class="transmission-alert">// INCOMING TRANSMISSION DETECTED //</p>
+            <p class="debut-hint">[ CLICK TO DECRYPT ]</p>
+            <div class="debut-data-rows">
+              <div class="debut-bar-row">
+                <span class="debut-bar-label">SIGNAL</span>
+                <div class="debut-bar-track"><div class="debut-bar-fill"></div></div>
+                <span class="debut-bar-val">??%</span>
+              </div>
+              <div class="debut-bar-row">
+                <span class="debut-bar-label">ENCODE</span>
+                <div class="debut-bar-track"><div class="debut-bar-fill" style="animation-delay:0.8s"></div></div>
+                <span class="debut-bar-val">??%</span>
+              </div>
+              <div class="debut-bar-row">
+                <span class="debut-bar-label">LOCKED</span>
+                <div class="debut-bar-track"><div class="debut-bar-fill" style="animation-delay:1.4s"></div></div>
+                <span class="debut-bar-val">??%</span>
+              </div>
             </div>
-            <div class="corrupt-line">
-              <span class="corrupt-label">DATA</span>
-              <span class="corrupt-val">░░░░░░░░░░ 0%</span>
-            </div>
-            <div class="corrupt-line">
-              <span class="corrupt-label">ETA</span>
-              <span class="corrupt-val">UNK▒▒WN</span>
-            </div>
-            <p class="corrupt-msg">// transmission corrupted — stand by //</p>
+          </div>
+
+          <!-- Decrypt animation layer -->
+          <div class="decrypt-overlay" id="decrypt-overlay"></div>
+
+          <!-- The actual embed, hidden until decrypted -->
+          <div class="embed-container" id="debut-embed">
+            <iframe data-testid="embed-iframe" style="border-radius:0" src="https://open.spotify.com/embed/playlist/0O4FNwv827MBE55v4bah9a?utm_source=generator&si=1830cde8c28a41ba" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
           </div>
         </div>
 
@@ -694,7 +855,7 @@
   const barPct = document.getElementById('bar-pct');
   const enterBtn = document.getElementById('enter-btn');
 
-  const statuses = ['ok','ok','ok','warn','ok','ok','ok','ok','ok'];
+  const statuses = ['ok','ok','ok','warn','ok','ok','ok','ok','warn','ok'];
   const statusSymbols = { ok: '✓', warn: '!', err: '✗' };
 
   const totalLogs = logs.length;
@@ -719,7 +880,6 @@
     statusEl.classList.remove('pending');
     statusEl.classList.add(st);
 
-    // slight delay then swap symbol
     setTimeout(() => {
       statusEl.textContent = statusSymbols[st];
     }, 200);
@@ -728,12 +888,10 @@
     updateBar(pct);
     currentLog++;
 
-    // staggered timing — some lines faster, some slower for drama
-    const delays = [520, 680, 750, 600, 520, 800, 500, 680, 900];
+    const delays = [520, 680, 750, 600, 520, 800, 500, 680, 1100, 900];
     setTimeout(revealNextLog, delays[currentLog - 1] ?? 600);
   }
 
-  // small pause before boot starts
   setTimeout(revealNextLog, 600);
 
   function enterSite() {
@@ -745,6 +903,65 @@
       boot.style.display = 'none';
       main.classList.add('visible');
     }, 800);
+  }
+
+  // ---- DECRYPT SEQUENCE ----
+  const glitchChars = '▓▒░█▄▀■□◆◇●○◉╬╫╪╩╦╠═╔╗╝╚╣╤╧╞╟';
+
+  function randomGlitch(length) {
+    let out = '';
+    for (let i = 0; i < length; i++) {
+      out += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+    }
+    return out;
+  }
+
+  function startDecrypt() {
+    const overlay = document.getElementById('debut-overlay');
+    const decryptEl = document.getElementById('decrypt-overlay');
+    const embedEl = document.getElementById('debut-embed');
+    const card = document.getElementById('debut-card');
+
+    // hide classified overlay
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => { overlay.style.display = 'none'; }, 300);
+
+    // show decrypt layer
+    decryptEl.style.display = 'flex';
+
+    const targetText = '8-BIT LOVE & THE PIXEL PEOPLE';
+    const totalSteps = 28;
+    let step = 0;
+
+    const interval = setInterval(() => {
+      step++;
+      const revealed = targetText.slice(0, Math.floor((step / totalSteps) * targetText.length));
+      const scramble = randomGlitch(targetText.length - revealed.length);
+      decryptEl.textContent = revealed + scramble;
+
+      if (step >= totalSteps) {
+        clearInterval(interval);
+        decryptEl.textContent = targetText;
+
+        // flash the card border cyan to signal success
+        card.style.animation = 'none';
+        card.style.borderColor = 'var(--neon-cyan)';
+        card.style.boxShadow = '0 0 24px rgba(0,245,255,0.4)';
+
+        // brief pause then show embed
+        setTimeout(() => {
+          decryptEl.style.display = 'none';
+          embedEl.style.display = 'block';
+          requestAnimationFrame(() => {
+            embedEl.classList.add('visible');
+          });
+          // reset card border
+          card.style.borderColor = 'rgba(0,245,255,0.15)';
+          card.style.boxShadow = '';
+        }, 600);
+      }
+    }, 60);
   }
 </script>
 
